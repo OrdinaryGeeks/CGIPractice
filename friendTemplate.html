@@ -1,0 +1,219 @@
+<div class="friend-container">
+  <!-- Friend List Section -->
+  <div class="friend-list-section">
+    <h3>Friends</h3>
+    <div ng-repeat="friend in friendZone.users track by friend.name">
+      <div ng-if="friend !== friendZone.chosenFriend" class="friend-card">
+        <div class="friend-info">
+          <label>Name: {{friend.name}}</label>
+          <label>Age: {{friend.age}}</label>
+        </div>
+        <div class="friend-actions">
+          <button ng-click="friendZone.selectShowMore(friend.name)" class="btn-show-more">
+            Select {{friend.name}} to see photos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Details Section -->
+  <div ng-repeat="friend in friendZone.users track by friend.name">
+    <div ng-if="friend.showMore" class="profile-details">
+      <h3>Selected Profile: {{friend.name}}</h3>
+      <div class="profile-edit">
+        <label>Name: <input type="text" ng-model="friend.name"></label>
+        <label>Age: <input type="number" ng-model="friend.age"></label>
+      </div>
+      
+      <div class="profile-images">
+        <h4>Profile Photos:</h4>
+        <div ng-repeat="url in friend.fbImgUrls track by $index" class="image-container">
+          <img ng-src="{{url}}" class="profile-image">
+        </div>
+      </div>
+      
+      <div class="profile-actions">
+        <button ng-click="friendZone.closeShowMore(friend.name)" class="btn-close">Close Profile</button>
+        <button ng-click="friendZone.setMatch(friend.name)" class="btn-match">Set Match</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matches Section -->
+  <div ng-if="friendZone.chosenFriend && friendZone.chosenFriend.matches.length > 0" class="matches-section">
+    <h3>Your Matches</h3>
+    <div ng-repeat="friend in friendZone.chosenFriend.matches track by friend.name" class="match-card">
+      <div class="match-info">
+        <span class="match-name">{{friend.name}}</span>
+        <img ng-if="friend.fbImgUrls.length > 0" ng-src="{{friend.fbImgUrls[0]}}" class="match-image"/>
+      </div>
+      <div class="match-actions">
+        <label class="message-checkbox">
+          <input type="checkbox" ng-model="friend.messageToSelected">
+          Message to {{friend.name}}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages Section -->
+  <div ng-if="friendZone.chosenFriend && friendZone.chosenFriend.messages.length > 0" class="messages-section">
+    <h3>Messages</h3>
+    <ul class="messages-list">
+      <li ng-repeat="message in friendZone.chosenFriend.messages track by $index" class="message-item">
+        <div ng-if="message.from == friendZone.chosenFriend.name" class="message-sent">
+          <strong>{{friendZone.getRecipientNames(message)}}:</strong> {{message.text}}
+        </div>
+        <div ng-if="message.from != friendZone.chosenFriend.name" class="message-received">
+          <strong>{{message.from}}:</strong> {{message.text}}
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Message Composer -->
+  <div class="message-composer">
+    <label>Send Message:</label>
+    <textarea ng-model="friendZone.message" placeholder="Type your message here..." class="message-input"></textarea>
+    <button ng-click="friendZone.addMessage()" class="btn-send">Send Message</button>
+  </div>
+
+  <!-- Add Friend Section -->
+  <div class="add-friend-section">
+    <h4>Add New Friend</h4>
+    <form ng-submit="friendZone.addFriend()">
+      <input type="text" ng-model="friendZone.friendName" placeholder="Enter friend's name" class="friend-name-input">
+      <input type="submit" value="Add Friend" class="btn-add">
+    </form>
+  </div>
+</div>
+
+<style>
+.friend-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.friend-card, .match-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.profile-details {
+  border: 2px solid #4CAF50;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 10px;
+  background-color: #e8f5e8;
+}
+
+.profile-images {
+  margin: 15px 0;
+}
+
+.image-container {
+  display: inline-block;
+  margin: 5px;
+}
+
+.profile-image, .match-image {
+  height: 150px;
+  width: 150px;
+  margin: 5px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.match-image {
+  height: 80px;
+  width: 80px;
+}
+
+.matches-section {
+  background-color: #fff3cd;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.messages-section {
+  background-color: #d1ecf1;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.message-sent {
+  background-color: #28a745;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.message-received {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.message-composer {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.message-input {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.btn-show-more, .btn-close, .btn-match, .btn-send, .btn-add {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.btn-show-more:hover, .btn-close:hover, .btn-match:hover, .btn-send:hover, .btn-add:hover {
+  background-color: #0056b3;
+}
+
+.btn-match {
+  background-color: #dc3545;
+}
+
+.btn-match:hover {
+  background-color: #c82333;
+}
+
+.friend-name-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  width: 200px;
+}
+
+.add-friend-section {
+  background-color: #e2e3e5;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+</style>

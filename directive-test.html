@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app="todoApp">
+  <head>
+    <title>Directive Test</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+    <h1>Directive Test</h1>
+    
+    <!-- Test if basic Angular works -->
+    <p>Basic test: {{2 + 3}}</p>
+    
+    <!-- Test simple directive -->
+    <simple-test></simple-test>
+    
+    <!-- Test your directives -->
+    <h3>Testing Friend Directive:</h3>
+    <Friend></Friend>
+    
+    <h3>Testing FriendSide Directive:</h3>
+    <FriendSide></FriendSide>
+
+    <script>
+      angular.module('todoApp', [])
+        .directive('simpleTest', function() {
+          return {
+            restrict: 'E',
+            template: '<div style="border: 1px solid red; padding: 10px;"><h4>Simple Test Directive Works!</h4></div>'
+          };
+        })
+        .directive('Friend', function() {
+          return {
+            restrict: 'E',
+            template: '<div style="border: 2px solid blue; padding: 15px;"><h4>Friend Directive Works!</h4><p>Controller: {{friendZone.users.length}} users</p></div>',
+            controller: 'FriendController',
+            controllerAs: 'friendZone'
+          };
+        })
+        .directive('FriendSide', function() {
+          return {
+            restrict: 'E',
+            template: '<div style="border: 2px solid green; padding: 15px;"><h4>FriendSide Directive Works!</h4><p>Users: {{friendZone.users.length}}</p></div>',
+            controller: 'FriendController',
+            controllerAs: 'friendZone'
+          };
+        })
+        .controller('FriendController', function() {
+          var friendZone = this;
+          friendZone.users = [
+            {name: 'Nathan', age: 41},
+            {name: 'Shry', age: 30}
+          ];
+          console.log('FriendController initialized with', friendZone.users.length, 'users');
+        });
+    </script>
+  </body>
+</html>

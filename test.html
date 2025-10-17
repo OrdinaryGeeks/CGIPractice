@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="todoApp">
+  <head>
+    <title>Angular Test</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="todo.js"></script>
+    <script src="friend.js"></script>
+    
+    <h1>Angular Test Page</h1>
+    
+    <!-- Test basic Angular -->
+    <h2>Basic Test: {{1 + 1}}</h2>
+    
+    <!-- Test controller -->
+    <div ng-controller="FriendController as friendZone">
+      <h3>Controller Test</h3>
+      <p>Users count: {{friendZone.users.length}}</p>
+      <ul>
+        <li ng-repeat="user in friendZone.users">{{user.name}} - Age: {{user.age}}</li>
+      </ul>
+      
+      <h4>Choose a friend:</h4>
+      <button ng-repeat="user in friendZone.users" ng-click="friendZone.chooseFriend(user.name)">
+        {{user.name}}
+      </button>
+      
+      <div ng-if="friendZone.chosenFriend">
+        <h4>Selected: {{friendZone.chosenFriend.name}}</h4>
+        <p>Age: {{friendZone.chosenFriend.age}}</p>
+      </div>
+    </div>
+
+    <style>
+      body { font-family: Arial, sans-serif; padding: 20px; }
+      button { margin: 5px; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+      li { margin: 5px 0; }
+    </style>
+  </body>
+</html>

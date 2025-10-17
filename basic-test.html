@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app="testApp">
+  <head>
+    <title>Basic Directive Test</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+    <h1>Basic Directive Test</h1>
+    
+    <!-- Test if Angular works at all -->
+    <p>Math: {{2 + 3}}</p>
+    
+    <!-- Test attribute directive -->
+    <div my-directive>This div has an attribute directive</div>
+    
+    <!-- Test element directive with dash -->
+    <my-element></my-element>
+    
+    <!-- Test element directive camelCase -->
+    <myElement></myElement>
+
+    <script>
+      console.log('Script starting...');
+      
+      var app = angular.module('testApp', []);
+      console.log('Module created');
+      
+      app.directive('myDirective', function() {
+        console.log('myDirective function called');
+        return {
+          restrict: 'A',
+          link: function(scope, element) {
+            console.log('myDirective linked');
+            element.css('background-color', 'yellow');
+            element.append('<p>Attribute directive works!</p>');
+          }
+        };
+      });
+      
+      app.directive('myElement', function() {
+        console.log('myElement function called');
+        return {
+          restrict: 'E',
+          template: '<div style="border: 2px solid red; padding: 10px;">Element directive works!</div>'
+        };
+      });
+      
+      console.log('Directives registered');
+    </script>
+  </body>
+</html>

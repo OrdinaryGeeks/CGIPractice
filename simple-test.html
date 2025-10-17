@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app="simpleApp">
+  <head>
+    <title>Simple Angular Test</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+    <h1>Simple Angular Test</h1>
+    
+    <!-- Test basic Angular -->
+    <h2>Math Test: {{2 + 3}}</h2>
+    
+    <!-- Test controller -->
+    <div ng-controller="TestController as test">
+      <h3>Controller Test</h3>
+      <p>Message: {{test.message}}</p>
+      <p>Count: {{test.count}}</p>
+      <button ng-click="test.increment()">Click Me</button>
+    </div>
+
+    <script>
+      // Simple Angular app
+      angular.module('simpleApp', [])
+        .controller('TestController', function() {
+          var test = this;
+          test.message = 'Hello Angular!';
+          test.count = 0;
+          
+          test.increment = function() {
+            test.count++;
+          };
+        });
+    </script>
+  </body>
+</html>

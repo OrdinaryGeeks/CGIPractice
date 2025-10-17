@@ -1,0 +1,15 @@
+{
+  "name": "cgipractice",
+  "version": "1.0.0",
+  "description": "CGI Practice friend zone app",
+  "main": "CGIPractice.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathaniel Stokes III",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.8.3",
+    "angular-material": "^1.2.5"
+  }
+}
