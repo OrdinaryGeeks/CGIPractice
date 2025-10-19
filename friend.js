@@ -161,8 +161,10 @@ fbImgUrls:[
     console.log("Adding message");
     if(friendZone.chosenFriend)
     {
-        var sendToList = friendZone.users.filter(function(user) { return user.messageToSelected; }).map(function(user) { return user.name; });
+     //   var sendToList = friendZone.users.filter(function(user) { return ; }).map(function(user) { return user.name; });
       //  sendToList.push(friendZone.chosenFriend.name);
+
+      var sendToList = friendZone.matchedFriendSelected ? [friendZone.matchedFriendSelected.name] : [];
         console.log(sendToList);
         var text = friendZone.message;
         console.log(text);

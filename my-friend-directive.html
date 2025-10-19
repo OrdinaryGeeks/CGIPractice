@@ -44,21 +44,29 @@
             <label>Name:{{friend.name}}</label>
             <label>Age:{{friend.age}}</label>
 </div>
-<div style="flex:1 ;text-align:center">
+<div style="flex:1 ;text-align:center" flex>
             <img display=block ng-click="friendZone.setMatchedSelectedFriend(friend.name)" height="200px" width="200px" ng-if="friend.fbImgUrls && friend.fbImgUrls.length>0" ng-src="{{friend.fbImgUrls[0]}}"/>
             </div>
-          <label style="text-align:center" display="block">
-            <input style="text-align: center;" type="checkbox" ng-model="friend.messageToSelected">
+            <div ng-if="friendZone.matchedFriendSelected == null">
+                <h2>Select a match to message them</h2>
+            </div>
+            <div ng-if="friendZone.matchedFriendSelected != null" style="flex:1; text-align:center" flex>
+          <label  >
+           
             Message to {{friend.name}}
           </label>
+          </div>
         </div>
       
 
 
-      <div>
+      <div ng-if="friendZone.matchedFriendSelected != null" style="text-align:center; flex:1" display="block" flex>
+        <div style="flex:1">
         <label>Message:</label>
+        
         <textarea ng-model="friendZone.message"></textarea>
-        <button ng-click="friendZone.addMessage()">Send Message</button>
+        </div>
+        <button style="flex:1" ng-click="friendZone.addMessage()">Send Message</button>
       </div>
 </div>
 
