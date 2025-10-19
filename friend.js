@@ -1,11 +1,18 @@
 
 
-angular.module('todoApp', ['ngMaterial']).controller('FriendController', function() {
-  var friendZone = this;
-  friendZone.users = [
-    {name: 'Nathan', age: 41, messages: [], friends: [], messageToSelected: false, toggleMessageSelected: function() {
-        this.messageToSelected = !this.messageToSelected; 
-     
+
+angular.module('friendZone', ['ngMaterial']).directive('friendContent', function(){
+  return {
+    controller: 'FriendController',
+    controllerAs: 'friendZone',
+    restrict: 'E',
+    templateUrl: 'my-friend-directive.html',
+  }}).controller('FriendController', function() {
+      var friendZone = this;
+      friendZone.users = [
+        {name: 'Nathan', age: 41, messages: [], friends: [], messageToSelected: false, toggleMessageSelected: function() {
+            this.messageToSelected = !this.messageToSelected;
+
     }, 
     matches : [],
     profileSelected: false,
@@ -15,6 +22,18 @@ angular.module('todoApp', ['ngMaterial']).controller('FriendController', functio
           "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/480964099_10109466356482786_1442497873950766045_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=4qL2g2zUT0MQ7kNvwH2EwKb&_nc_oc=AdkDDe09gGwGWk-35uLF89tDDbBNB64hoBkieGKy9VJ7-IC7nXLuLfdpNv77FPSobWk&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=c0P_wxtTrbHrq2YXJIEidg&oh=00_AfeNoON2mYAZNHIO1IMD44Mhz9FcGbMUv56shm61xnpmXA&oe=68F77EBA",
           "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/486681231_10109557250310826_5020835080124513701_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vZkFlkHGz2gQ7kNvwFHu0w1&_nc_oc=Adnr7gJI7Wicq9QKedRRpw8sw-DQOYqd7rviYrI-R4Jbazx_XCUO0ELeQsu8nDmaqXU&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=a5roB1U6fbJGwAfD5mkXew&oh=00_AfeOwxd5UH9Gqq2peEHSCMmDlw1OwBN6nWLE4qBIex1dLA&oe=68F78BFB"
         ]},
+        {name: 'Lashondra', age: 28, messages: [], friends: [], messageToSelected: false, toggleMessageSelected: function() {
+            this.messageToSelected = !this.messageToSelected;
+    },
+    profileSelected:false,
+    showMore:false,
+    matches:[],
+    fbImgUrls:[
+        "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/506624110_24346825594935179_3763995262635441162_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=MUCWVAZDi5AQ7kNvwEmE0LM&_nc_oc=AdlBlaOfmdGMw6CcqOwc_3X2ZBdP3yOgidLGA2rt8Xoza47fXkXXCJW-dLcga6VDq04&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=mk6BA4SDq6MuQWDoTgCS3A&oh=00_Affu15aRJdurZ9ROtTdT-5hpYXXnlrFDhbQd0csTsRnEIA&oe=68F8067F",
+        "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/475746932_9664076623636652_4985007692258853728_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=c_Rgye_ig1MQ7kNvwEte9ui&_nc_oc=AdlN5UsTdoDJLLfwIgnq08mLFF__GSJhvru-fMfx_W-lVuRY9H3Cs1-AHs5PdOkseX8&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=BwakVYed3haqqYxgXHgrlw&oh=00_Affy9Tup0aifQl2CeXBcVT87_40T5-v7SXatEBdYhNDQuQ&oe=68F7F811",
+        "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/554573925_25182694458014951_8047609596986063900_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=s3RysthNk74Q7kNvwG60bP2&_nc_oc=AdmBm8XZtbBYINbpkiD1edMuV0jQuyz5Bv_Hgb69_ORaqk57FD65BmJPLVu3hV5xzCc&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=Rh1TKbKxMNbMYNHNSKVNcQ&oh=00_AffulEKipXwGs3jP7QlcDlhkD-Y0kDOwF9iUJHiFvSkmdw&oe=68F80E29",
+        "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/554199543_25182694554681608_5201334363514838079_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=W5dqOl8VUXsQ7kNvwH3R0tX&_nc_oc=Adn4ZtX9Px56YCYRJ_Q5zMl4djmb1OSlJ81_OvNv7b5bLdLm1hzmUO8YI219jqHEVIE&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=bk4J5GUaZ41OOnMsMRjymQ&oh=00_AfdYl5Pt-OeuTKVKf4UOzQ79s5kP7uAFJbr58eoC7x23jQ&oe=68F8146E"
+    ]},
     {name: 'Shry', age: 30, messages: [], friends: [], messageToSelected: false, toggleMessageSelected: function() {
         this.messageToSelected = !this.messageToSelected;
     },
@@ -29,7 +48,30 @@ fbImgUrls:[
   
   friendZone.message = "";
   friendZone.chosenFriend = null;
+  friendZone.matchedFriendSelected = null;
 
+
+  friendZone.getMessagesForChosenMatch= function(){
+
+
+
+    if(friendZone.matchedFriendSelected)
+    {
+        var recipients = [friendZone.matchedFriendSelected.name, friendZone.chosenFriend.name];
+
+    }
+
+    return friendZone.chosenFriend.messages.filter(function(message){
+
+      return (message.recipients.includes(friendZone.matchedFriendSelected.name) && message.from === friendZone.chosenFriend.name) ||
+             (message.recipients.includes(friendZone.chosenFriend.name) && message.from === friendZone.matchedFriendSelected.name);
+    })
+  }
+  friendZone.setMatchedSelectedFriend = function(name){
+    alert("Looking for name for matched selected " + name);
+
+    friendZone.matchedFriendSelected = friendZone.users.find(function(user) { return user.name === name; });
+  }
   friendZone.isSelected = function(friend) {
     return friendZone.chosenFriend && friendZone.chosenFriend.name === friend.name;
   };
@@ -44,6 +86,7 @@ fbImgUrls:[
     var matchedFriend = friendZone.users.find(function(user) { return user.name === name; });
     if (matchedFriend && friendZone.chosenFriend.matches.indexOf(matchedFriend) === -1) {
       friendZone.chosenFriend.matches.push(matchedFriend);
+      console.log(matchedFriend.fbImgUrls);
       alert("You have matched with " + name + "! You can now message them.");
     }
   };
@@ -55,6 +98,16 @@ fbImgUrls:[
     });
 
     return filteredFriends;
+  }
+  friendZone.resetAll= function() {
+
+    for (var i = 0; i < friendZone.users.length; i++) 
+      {
+        friendZone.users[i].messageToSelected = false;
+        friendZone.users[i].profileSelected = false;
+        friendZone.users[i].showMore = false;
+          friendZone.matchedFriendSelected = null;
+      }
   }
   friendZone.selectShowMore = function(name) {
     for (var i = 0; i < friendZone.users.length; i++) {
@@ -99,10 +152,8 @@ fbImgUrls:[
   friendZone.chooseFriend = function(name) {
    // alert("Choosing friend: " + name);
 
-   for (var i = 0; i < friendZone.users.length; i++) {
-     friendZone.users[i].messageToSelected = false;
-      friendZone.users[i].profileSelected = false;
-   }
+   friendZone.resetAll();
+  
     friendZone.chosenFriend = friendZone.users.find(function(user) { return user.name === name; });
   };
 

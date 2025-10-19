@@ -1,0 +1,84 @@
+
+<h2 style="text-align:center" >Users In Our App</h2>
+<div ng-if="friendZone.chosenFriend != null">
+ <div ng-repeat="friend in friendZone.users">
+        <div ng-if="friend !== friendZone.chosenFriend">
+            <div style="text-align: center;" flex>
+          <label>Name: {{friend.name}}</label>
+          <label>Age: {{friend.age}}</label>
+          </div>
+          <div style="text-align:center">
+          <img display="block"height="150px" width="150px" ng-src="{{friend.fbImgUrls[0]}}" ng-click="friendZone.selectShowMore(friend.name)"/>
+        </div>
+        </div>
+      </div>
+
+      <!--<form ng-submit="friendZone.addFriend()">
+        <input type="text" ng-model="friendZone.friendName"  size="30"
+               placeholder="add new friend here">
+        <input class="btn-primary" type="submit" value="add">
+      </form>-->
+
+      
+      <div ng-repeat="friend in friendZone.users">
+        <div style="text-align:center" ng-if="friend.showMore">
+            <h3>Selected Profile: {{friend.name}}</h3>
+            <label>Name: {{friend.name}}</label>
+            <label>Age: {{friend.age}}</label>
+            <div class="profile-images">
+              <h4>Profile Photos:</h4>
+              <div ng-repeat="url in friend.fbImgUrls" class="image-container">
+                <img ng-src="{{url}}" style="height:150px; width:150px; margin:5px; border-radius:8px; object-fit:cover;">
+              </div>
+            </div>
+            <button ng-click="friendZone.closeShowMore(friend.name)">Close Profile</button>
+            <button ng-click="friendZone.setMatch(friend.name)">Set Match</button>
+        </div>
+      </div>
+
+      <div ng-if="friendZone.chosenFriend && friendZone.chosenFriend.matches.length > 0">
+        <h3 style="text-align:center">MATCHES</h3>
+        
+        <div ng-repeat="friend in friendZone.chosenFriend.matches">
+            <div style="text-align:center; flex-direction: row; flex:1" flex>
+            <label>Name:{{friend.name}}</label>
+            <label>Age:{{friend.age}}</label>
+</div>
+<div style="flex:1 ;text-align:center">
+            <img display=block ng-click="friendZone.setMatchedSelectedFriend(friend.name)" height="200px" width="200px" ng-if="friend.fbImgUrls && friend.fbImgUrls.length>0" ng-src="{{friend.fbImgUrls[0]}}"/>
+            </div>
+          <label style="text-align:center" display="block">
+            <input style="text-align: center;" type="checkbox" ng-model="friend.messageToSelected">
+            Message to {{friend.name}}
+          </label>
+        </div>
+      
+
+
+      <div>
+        <label>Message:</label>
+        <textarea ng-model="friendZone.message"></textarea>
+        <button ng-click="friendZone.addMessage()">Send Message</button>
+      </div>
+</div>
+
+
+              <div ng-if="friendZone.chosenFriend.messages.length > 0">
+          <label>Messages:</label>
+          <ul>
+            <li ng-repeat="message in friendZone.getMessagesForChosenMatch()">
+              <div ng-if="message.from == friendZone.chosenFriend.name" class="yellow">
+                <strong>{{message.from}}:</strong> {{message.text}}
+              </div>
+              <div ng-if="message.from != friendZone.chosenFriend.name" class="pink">
+                <strong>{{message.from}}:</strong> {{message.text}}
+              </div>
+            </li>
+          </ul>
+        </div>
+        </div>
+        <div ng-if="friendZone.chosenFriend == null">
+            <div>
+                <h2 style="text-align: center;">Select a friend to emulate</h2>
+            </div>
+    </div>
